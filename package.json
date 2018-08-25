@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "lint": "eslint . --cache --fix",
+    "pretest": "npm run lint",
+    "format": "prettier --write '**/*.{js,css,md}'",
+    "posttest": "npm run format"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "prettier": "^1.14.2"
+  }
+}
