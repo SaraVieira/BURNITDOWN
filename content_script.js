@@ -1,5 +1,5 @@
-const tags = document.getElementsByTagName("script");
-var s = new XMLSerializer();
+const tags = document.getElementsByTagName("script")
+var s = new XMLSerializer()
 
 const trackers = [
 	"quantserve",
@@ -17,14 +17,14 @@ const trackers = [
 	"leadforensics",
 	"px.ads.linkedin",
 	"googlesyndication"
-];
+]
 
 const flatten = arr =>
 	arr.reduce((flat, toFlatten) => {
 		return flat.concat(
 			Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten
-		);
-	}, []);
+		)
+	}, [])
 
 const scripts = Array.from(tags)
 	.map(t => Array.from(t.attributes))
@@ -35,29 +35,29 @@ const scripts = Array.from(tags)
 				s.serializeToString(t).length > 0 &&
 				s.serializeToString(t) !== "text/javascript"
 		)
-	);
+	)
 
 const checker = value => {
 	for (var i = 0; i < trackers.length; i++) {
 		if (value.indexOf(trackers[i]) > -1) {
-			return true;
+			return true
 		}
 	}
-	return false;
-};
+	return false
+}
 
 const returnValue = flatten(scripts)
 	.map(t => s.serializeToString(t))
-	.filter(checker);
+	.filter(checker)
 
-console.log(returnValue);
+console.log(returnValue)
 
 if (returnValue.length > 1) {
-	console.log("here");
-	var iDiv = document.createElement("div");
-	iDiv.className = "failed";
+	console.log("here")
+	var iDiv = document.createElement("div")
+	iDiv.className = "failed"
 	iDiv.innerHTML = `<img src='https://wwwcache.wralsportsfan.com/asset/colleges/2016/09/01/15978320/explosion_2-240x320.gif' />
-		<h1 style="color: white;">This page has ${returnValue.length} trackers</h1>`;
+		<h1 style="color: white;">This page has ${returnValue.length} trackers</h1>`
 
 	iDiv.setAttribute(
 		"style",
@@ -75,6 +75,6 @@ if (returnValue.length > 1) {
 		left: 0;
     top: 0;
 		`
-	);
-	document.getElementsByTagName("body")[0].appendChild(iDiv);
+	)
+	document.getElementsByTagName("body")[0].appendChild(iDiv)
 }
